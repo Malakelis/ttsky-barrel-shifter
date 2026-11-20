@@ -74,4 +74,21 @@ module n_ror_barrel #(parameter N = 4)
 
 
 
+genvar j, b;
+
+generate
+    for (j = 0; j < STAGES; j = j + 1) begin : row
+        for (b = 0; b < N; b = b + 1) begin : mux
+
+            assign stage[(j+1)*N + b] =
+                k[j] ?
+                stage[j*N + ((b + (1 << j)) % N)] :
+                stage[j*N + b];
+
+        end
+    end
+endgenerate
+
+
+
 endmodule
