@@ -1,0 +1,54 @@
+# Tiny Tapeout project information
+project:
+  title:        "Barrel Shifter (8-bit)"
+  author:       "Alan Aquino"
+  discord:      ""
+  description:  "8-bit combinational barrel shifter: rotate, logical shift and arithmetic shift, left or right"
+  language:     "Verilog"
+  clock_hz:     0       # purely combinational, no clock
+
+  # How many tiles your design occupies? A single tile is about 167x108 uM.
+  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+
+  top_module:  "tt_um_barrel_shifter"
+
+  # Source files must be in ./src and you must list each source file separately, one per line.
+  # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
+  source_files:
+    - "project.v"
+    - "n_shifter.v"
+
+# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
+pinout:
+  # Inputs
+  ui[0]: "DATA_IN0"
+  ui[1]: "DATA_IN1"
+  ui[2]: "DATA_IN2"
+  ui[3]: "DATA_IN3"
+  ui[4]: "DATA_IN4"
+  ui[5]: "DATA_IN5"
+  ui[6]: "DATA_IN6"
+  ui[7]: "DATA_IN7"
+
+  # Outputs
+  uo[0]: "DATA_OUT0"
+  uo[1]: "DATA_OUT1"
+  uo[2]: "DATA_OUT2"
+  uo[3]: "DATA_OUT3"
+  uo[4]: "DATA_OUT4"
+  uo[5]: "DATA_OUT5"
+  uo[6]: "DATA_OUT6"
+  uo[7]: "DATA_OUT7"
+
+  # Bidirectional pins (all used as inputs)
+  uio[0]: "K0"
+  uio[1]: "K1"
+  uio[2]: "K2"
+  uio[3]: "LEFT"
+  uio[4]: "SHIFT"
+  uio[5]: "ARITHMETIC"
+  uio[6]: ""
+  uio[7]: ""
+
+# Do not change!
+yaml_version: 6
