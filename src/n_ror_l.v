@@ -5,7 +5,7 @@
 // Start from your working Level 1 loops. You only ADD two things:
 //   (A) XOR gates that invert k when rotating left
 //   (B) a "preshift" row that rotates right by 1 when rotating left
-// Test with:  cd test && make LEVEL=2 N=4
+// Test with:  cd test/levels && make LEVEL=2 N=4
 // ============================================================================
 
 module n_ror_l #(parameter N = 4)
@@ -18,7 +18,8 @@ module n_ror_l #(parameter N = 4)
 
     localparam STAGES = $clog2(N);
 
-    wire [N-1:0] stage [0:STAGES];
+    // Same packed bus layout as Level 1: bit b of bus j is stage[j*N + b].
+    wire [(STAGES+1)*N-1:0] stage;
 
     // ------------------------------------------------------------------------
     // The idea:
@@ -43,8 +44,8 @@ module n_ror_l #(parameter N = 4)
     wire [N-1:0] pre;          // = ???
 
 
-    assign stage[0] = pre;            // the rotate rows now start from the preshift
-    assign data_out = stage[STAGES];
+    assign stage[N-1:0] = pre;                   // the rotate rows now start from the preshift
+    assign data_out     = stage[STAGES*N +: N];
 
     // TODO (C): copy your Level 1 generate loops here.
     // Hint: only ONE thing changes. Which signal should select the muxes now?

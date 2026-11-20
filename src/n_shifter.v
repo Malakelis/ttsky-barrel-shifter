@@ -10,7 +10,7 @@
 //     1    1      x       | shift left              (fill with 0)
 //
 // Start from your working Level 2 code, then add the masking unit.
-// Test with:  cd test && make LEVEL=3 N=4
+// Test with:  cd test/levels && make LEVEL=3 N=4
 // ============================================================================
 
 module n_shifter #(parameter N = 4)
@@ -25,16 +25,17 @@ module n_shifter #(parameter N = 4)
 
     localparam STAGES = $clog2(N);
 
-    wire [N-1:0] stage [0:STAGES];
+    // Same packed bus layout as Levels 1-2: bit b of bus j is stage[j*N + b].
+    wire [(STAGES+1)*N-1:0] stage;
 
     // ---------------- Rotate core ----------------
     // TODO (A): copy k_eff, pre, and your generate loops from Level 2.
     wire [STAGES-1:0] k_eff;
     wire [N-1:0]      pre;
 
-    assign stage[0] = pre;
+    assign stage[N-1:0] = pre;
 
-    wire [N-1:0] x = stage[STAGES];   // rotation result ("X" in Fig 11.68c)
+    wire [N-1:0] x = stage[STAGES*N +: N];   // rotation result ("X" in Fig 11.68c)
 
     // ---------------- Masking unit ----------------
     // A shift is a rotate where the bits that WRAPPED AROUND are replaced
